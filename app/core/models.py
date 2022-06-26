@@ -9,14 +9,14 @@ class Donor(models.Model):
         ('Female', 'Female'),
         ]
     BG = [
-        ('A+','A+'),
-        ('B+','B+'),
-        ('O+','O+'),
-        ('A-','A-'),
-        ('B-','B-'),
-        ('O-','O-'),
-        ('AB+','AB+'),
-        ('AB-','AB-'),
+        ('APOS','A+'),
+        ('BPOS','B+'),
+        ('OPOS','O+'),
+        ('ANEG','A-'),
+        ('BNEG','B-'),
+        ('ONEG','O-'),
+        ('ABPOS','AB+'),
+        ('ABNEG','AB-'),
     ]
     firstname = models.CharField(_('First Name'), max_length=255, null=True, blank=True)
     lastname = models.CharField(_('Last Name'), max_length=255, null=True, blank=True)

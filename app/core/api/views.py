@@ -11,6 +11,8 @@ from .serializers import *
 from core.models import *
 import os
 from collections import OrderedDict
+from django.contrib.postgres.search import (SearchVector, SearchQuery)
+
 
 class CustomPageNumber(PageNumberPagination):
     page_size = 20
@@ -70,11 +72,11 @@ class DonorList(APIView,CustomPageNumber):
         try:
             donor_list = Donor.objects.all().order_by('id')
             page = self.paginate_queryset(donor_list,request)
-            # for i in page:
-            #     if 'NEG' in i.blood_group:
-            #         i.blood_group = i.blood_group.replace('NEG','-')
-            #     elif 'POS' in i.blood_group:
-            #         i.blood_group = i.blood_group.replace('POS','+')
+            for i in page:
+                if 'NEG' in i.blood_group:
+                    i.blood_group = i.blood_group.replace('NEG','-')
+                elif 'POS' in i.blood_group:
+                    i.blood_group = i.blood_group.replace('POS','+')
             serializer = DonorSerializer(page, many=True)
             
             if(serializer.data):
@@ -145,16 +147,80 @@ class DonorFormView(APIView):
                     'result':'Invalid Data'
                 }
                 return Response(res, status=status.HTTP_400_BAD_REQUEST)
-            # if 'POS' in serializer.data[0]['blood_group']:
-            #     serializer.data[0]['blood_group']= serializer.data[0]['blood_group'].replace('POS','+')
-            # elif 'NEG' in serializer.data[0]['blood_group']:
-            #     serializer.data[0]['blood_group']= serializer.data[0]['blood_group'].replace('PNEG','-')
+            if 'POS' in serializer.data[0]['blood_group']:
+                serializer.data[0]['blood_group']= serializer.data[0]['blood_group'].replace('POS','+')
+            elif 'NEG' in serializer.data[0]['blood_group']:
+                serializer.data[0]['blood_group']= serializer.data[0]['blood_group'].replace('NEG','-')
             res={
                 'result':serializer.data
                 }
 
             return Response(res, status=status.HTTP_200_OK)
         
+        except Exception as e:
+            res = {
+                "error" : e.args[0]
+            }
+            return Response(res, status=status.HTTP_400_BAD_REQUEST)
+
+class SearchView(APIView,CustomPageNumber):
+    """Search Donor API. Sex, Age, Location, Blood group.
+
+    Args:
+        APIView ([class]): inherits default APIView of Django REST Framework(DRF)
+    """
+
+    permission_classes = (AllowAny, )
+
+    def get(self, request, format=None):
+        """Getting Donor data by Age, Sex, Location, Blood group. Authentication does not require.
+
+        Args:
+            request ([GET]): http://127.0.0.1:8000/api/search/?q=Dhaka
+            or 
+            http://127.0.0.1:8000/api/search/
+            query params : 
+                q : Dhaka
+
+        Returns:
+            [json]: Multiple dictionary object in a list.
+                {
+                    "count": 1,
+                    "next": null,
+                    "previous": null,
+                    "results": [
+                        {
+                            "id": 1,
+                            "firstname": "Moinul",
+                            "lastname": "Islam",
+                            "age": "24",
+                            "sex": "Male",
+                            "location": "Dhaka",
+                            "blood_group": "O+"
+                        }
+                    ]
+                }
+        """
+        try:
+            q=request.GET['q']
+            vector = SearchVector('age','sex','location','blood_group')
+            donor = Donor.objects.annotate(search=vector).filter(search=SearchQuery(q))
+            page = self.paginate_queryset(donor,request)
+            for i in page:
+                if 'NEG' in i.blood_group:
+                    i.blood_group = i.blood_group.replace('NEG','-')
+                elif 'POS' in i.blood_group:
+                    i.blood_group = i.blood_group.replace('POS','+')
+            serializer = DonorSerializer(page, many=True)
+            
+            if(serializer.data):
+                return self.get_paginated_response(serializer.data)
+            else:
+                res = {
+                        "error" : "Data Not Found"
+                    }
+                return Response(res, status=status.HTTP_204_NO_CONTENT)
+
         except Exception as e:
             res = {
                 "error" : e.args[0]
