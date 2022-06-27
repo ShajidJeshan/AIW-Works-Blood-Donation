@@ -47,5 +47,5 @@ Run `docker-compose run --rm app sh -c 'python manage.py test'`
 
 This app includes 03 services:
 1. data - PostgreSQL Database
-2. app - Django REST Framework with Centralized Logging
+2. app - Django REST Framework with Pagination & Centralized Logging
 3. frontend - React, MaterialUI
