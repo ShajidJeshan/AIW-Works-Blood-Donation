@@ -29,6 +29,7 @@
 2. In the console,
 
 `cd frontend`
+
 `npx create-react-app .`
 
 3. Go to `http://127.0.0.1:3000`
@@ -42,5 +43,5 @@
 
 This app includes 03 services:
 1. data - PostgreSQL Database
-2. app - Django REST Framework
+2. app - Django REST Framework with Centralized Logging
 3. frontend - React, MaterialUI
