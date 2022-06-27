@@ -39,6 +39,10 @@
 ### Run the Containers
 `docker-compose up -d`
 
+### API Testing
+
+Run `docker-compose run --rm app sh -c 'python manage.py test'`
+
 ## Details
 
 This app includes 03 services:
