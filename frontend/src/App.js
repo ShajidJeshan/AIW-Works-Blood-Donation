@@ -62,10 +62,6 @@ function App() {
         <Card title="Donor" onClick={() => setOpen(true)} />
         <Card title="Recipient" onClick={handleGetData} />
       </div>
-      {/* <div className={"list-wrapper " + (listOpen ? "dBlock" : "dNone")}>
-        showData
-        <Button onClick={() => setListOpen(false)}>close</Button>
-      </div> */}
       <div className={"list-wrapper " + (listOpen ? "dBlock" : "dNone")}>
         <div
           style={{
@@ -78,13 +74,13 @@ function App() {
             <TextField
               size="small"
               id="filled-search"
-              label="Search field"
+              label="Search"
               type="search"
               variant="filled"
               onChange={handleSearch}
             />
           </div>
-          <div>
+          <div style={{ margin: "10px" }}>
             <Button onClick={onSearch}>Search</Button>
           </div>
         </div>
@@ -103,7 +99,7 @@ function App() {
                     <TableCell align="right">Age</TableCell>
                     <TableCell align="right">Sex</TableCell>
                     <TableCell align="right">Location</TableCell>
-                    <TableCell align="right">Bllood group</TableCell>
+                    <TableCell align="right">Blood Group</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -129,9 +125,7 @@ function App() {
           "Data Not Found."
         )}
       </div>
-      <Button onClick={() => setListOpen(false)}>close</Button>
     </div>
-    // </div>
   );
 }
 
