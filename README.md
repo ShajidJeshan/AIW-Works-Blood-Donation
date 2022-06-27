@@ -37,7 +37,7 @@
 3. Use `CRTL+c` to exit the React Container.
 
 ### Run the Containers
-`docker-compose up`
+`docker-compose up -d`
 
 ## Details
 
