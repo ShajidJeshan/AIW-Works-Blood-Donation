@@ -17,7 +17,7 @@
 
 1. Create Super User using `docker-compose run --rm app sh -c "python manage.py createsuperuser"`
 
-2. Add SuperUser with Login Credentials and go to 'http://127.0.0.1:8000/'
+2. Add SuperUser with Login Credentials and go to `http://127.0.0.1:8000/`
 
 3. Use `CRTL+c` to exit the Django Container.
 
