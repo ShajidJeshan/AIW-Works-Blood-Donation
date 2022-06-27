@@ -4,6 +4,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  TextField,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -86,29 +87,43 @@ export default function Form({ onClose }) {
   return (
     <div className="form">
       <div style={{ marginBottom: "10px" }}>
-        <Input
-          name="firstname"
-          placeolder="Fisrt Name"
-          label="Fisrt Name"
-          onChange={handleChange}
-        />
-      </div>
-      <div style={{ marginBottom: "10px" }}>
-        <Input
-          name="lastname"
-          placeolder="Last Name"
-          label="Last Name"
-          onChange={handleChange}
-        />
+        <FormControl sx={{ minWidth: "100%" }} size="small">
+          <TextField
+            name="firstname"
+            id="1"
+            required
+            placeolder="First Name"
+            label="First Name"
+            onChange={handleChange}
+          />
+        </FormControl>
       </div>
 
       <div style={{ marginBottom: "10px" }}>
-        <Input
-          name="age"
-          placeolder="Age"
-          label="Age"
-          onChange={handleChange}
-        />
+        <FormControl sx={{ minWidth: "100%" }} size="small">
+          <TextField
+            name="lastname"
+            id="2"
+            required
+            placeolder="Last Name"
+            label="Last Name"
+            onChange={handleChange}
+          />
+        </FormControl>
+      </div>
+
+      <div style={{ marginBottom: "10px" }}>
+        <FormControl sx={{ minWidth: "100%" }} size="small">
+          <TextField
+            name="age"
+            id="3"
+            required
+            type="number"
+            placeolder="Age"
+            label="Age"
+            onChange={handleChange}
+          />
+        </FormControl>
       </div>
 
       <div style={{ marginBottom: "10px" }}>
@@ -128,21 +143,19 @@ export default function Form({ onClose }) {
       </div>
 
       <div style={{ marginBottom: "10px" }}>
-        <Input
-          name="location"
-          placeolder="Location"
-          label="Location"
-          onChange={handleChange}
-        />
+        <FormControl sx={{ minWidth: "100%" }} size="small">
+          <TextField
+            name="location"
+            id="4"
+            required
+            placeolder="Location"
+            label="Location"
+            onChange={handleChange}
+          />
+        </FormControl>
       </div>
 
       <div style={{ marginBottom: "10px" }}>
-        {/* <Input
-          name="blood_group"
-          placeolder="Blood Group"
-          label="Blood Group"
-          onChange={handleChange}
-        /> */}
         <FormControl sx={{ minWidth: "100%" }} size="small">
           <InputLabel id="demo-select-small">Blood Group</InputLabel>
           <Select
@@ -152,9 +165,6 @@ export default function Form({ onClose }) {
             label="Blood Group"
             onChange={(e) => handleBlood(e)}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
             <MenuItem value="A+">A+</MenuItem>
             <MenuItem value="A-">A-</MenuItem>
             <MenuItem value="B+">B+</MenuItem>
@@ -166,8 +176,6 @@ export default function Form({ onClose }) {
           </Select>
         </FormControl>
       </div>
-
-      {/* for button */}
 
       <div
         style={{

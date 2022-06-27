@@ -42,8 +42,9 @@ services:
       - /frontend/node_modules
     ports:
       - "3000:3000"
+    stdin_open: true
     environment:
       - NODE_ENV=development
     depends_on:
       - app
-    # command: npm start
+    command: npm start
