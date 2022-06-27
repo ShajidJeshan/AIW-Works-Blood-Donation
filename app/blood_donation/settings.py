@@ -36,8 +36,6 @@ ALLOWED_HOSTS.extend(
     )
 )
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'import_export',
+    "corsheaders",
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'blood_donation.urls'
@@ -171,3 +173,10 @@ STATIC_ROOT = '/vol/web/static'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+]
