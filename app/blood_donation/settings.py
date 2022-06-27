@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+from logging import INFO
 import os
 from pathlib import Path
+from blood_donation.logging_formatters import CustomJsonFormatter
+from .logging_formatters import CustomJsonFormatter
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,6 +95,34 @@ DATABASES = {
     }
 }
 
+LOGGING ={
+    'version' : 1,
+    'disable_existing_loggers': False,
+
+    'formatters':{
+        'main_formatter':{
+            '()': CustomJsonFormatter,
+            "style" : "{",
+        }
+    },
+
+    'handlers': {
+        'file': {
+            'class' : 'logging.FileHandler',
+            'filename' : 'blood_donation.log',
+            'formatter' : 'main_formatter',
+        },
+    },
+
+    'loggers': {
+        'main': {
+            'handlers' : ['file'],
+            'propagate' : True,
+            'level' : INFO,
+        }
+    },
+
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -117,7 +148,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
