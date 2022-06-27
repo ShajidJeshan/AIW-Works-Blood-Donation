@@ -1,3 +1,4 @@
+from telnetlib import STATUS
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,7 +26,7 @@ class CustomPageNumber(PageNumberPagination):
              ('next', self.get_next_link()),
              ('previous', self.get_previous_link()),
              ('results', data)
-         ]))
+         ]),status=status.HTTP_200_OK)
 
 class DonorList(APIView,CustomPageNumber):
     """Available Donor List API.
@@ -161,7 +162,7 @@ class DonorFormView(APIView):
                 'result':serializer.data
                 }
             logger.info("Successfully submitted donor data ")
-            return Response(res, status=status.HTTP_200_OK)
+            return Response(res, status=status.HTTP_201_CREATED)
         
         except Exception as e:
             res = {
