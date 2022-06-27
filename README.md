@@ -43,6 +43,11 @@
 
 Run `docker-compose run --rm app sh -c 'python manage.py test'`
 
+
+### Container Stop
+
+Run `docker-compose stop`
+
 ## Details
 
 This app includes 03 services:
